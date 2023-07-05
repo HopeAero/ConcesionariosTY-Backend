@@ -14,7 +14,8 @@ const posterClients = async (req, res) => {
             const telefonoPrincipal = req.body.telefono_principal;
             const telefonoSecundario = req.body.telefono_secundario;
             const verifyPhone = await pool.query('SELECT * FROM cliente WHERE telefono_principal = $1', [telefonoPrincipal]);
-            if (verifyPhone.rows.length !== 0) {
+            const verify2Phone = await pool.query('SELECT * FROM cliente WHERE telefono_secundario = $1', [telefonoPrincipal]);
+            if (verifyPhone.rows.length !== 0 || verify2Phone.rows.length !== 0) {
                 res.status(404).json({
                     success: false,
                     message: "Ya existe cliente con este telefono",
@@ -22,11 +23,14 @@ const posterClients = async (req, res) => {
             } else {
                 if (telefonoSecundario !== null) {
                     const verifyPhone2 = await pool.query('SELECT * FROM cliente WHERE telefono_secundario = $1', [telefonoSecundario]);
-                    if (verifyPhone2.rows.length !== 0 ) {
+                    const verify3Phone2 = await pool.query('SELECT * FROM cliente WHERE telefono_principal = $1', [telefonoSecundario]);
+
+                    if (verifyPhone2.rows.length !== 0 || verify3Phone2.rows.length !== 0) {
                         res.status(404).json({
                             success: false,
                             message: "Ya existe cliente con este telefono",
                         });
+
                     } else {
                         const {ci_cliente, nombre, direccion, telefono_principal, telefono_secundario, correo_electronico, es_frecuente} = req.body;
                         const response = await pool.query('INSERT INTO cliente (ci_cliente, nombre, direccion, telefono_principal, telefono_secundario, correo_electronico, es_frecuente) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [ci_cliente, nombre, direccion, telefono_principal, telefono_secundario, correo_electronico, es_frecuente]);

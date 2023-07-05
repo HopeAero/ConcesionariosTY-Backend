@@ -21,12 +21,23 @@ const posterClients = async (req, res) => {
                 });
             } else {
                 if (telefonoSecundario !== null) {
-                    const verifyPhone2 = await pool.query('SELECT * FROM cliente WHERE telefono_secundario = $1'[telefonoSecundario]);
-                    if (verifyPhone2.rows.length !== 0) {
+                    const verifyPhone2 = await pool.query('SELECT * FROM cliente WHERE telefono_secundario = $1', [telefonoSecundario]);
+                    console.log(verifyPhone2.rows.length);                
+                    if (verifyPhone2.rows.length !== 0 ) {
                         res.status(404).json({
                             success: false,
                             message: "Ya existe cliente con este telefono",
                         });
+                    } else {
+                        const {ci_cliente, nombre, direccion, telefono_principal, telefono_secundario, correo_electronico, es_frecuente} = req.body;
+                        const response = await pool.query('INSERT INTO cliente (ci_cliente, nombre, direccion, telefono_principal, telefono_secundario, correo_electronico, es_frecuente) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [ci_cliente, nombre, direccion, telefono_principal, telefono_secundario, correo_electronico, es_frecuente]);
+
+                        res.status(200).json({
+                            success: true,
+                            message: "Cliente insertado con exito",
+                            items: response.rows
+                        });
+
                     }
                 } else {
                     const {ci_cliente, nombre, direccion, telefono_principal, telefono_secundario, correo_electronico, es_frecuente} = req.body;

@@ -28,6 +28,16 @@ const updateClient = async (req, res) => {
                             success: false,
                             message: "Ya existe cliente con este telefono",
                         });
+                    } else {
+                        const {nombre, direccion, telefono_principal, telefono_secundario, correo_electronico, es_frecuente} = req.body;
+                        const response = await pool.query(
+                        'UPDATE cliente SET nombre = $1, direccion = $2, telefono_principal = $3, telefono_secundario = $4, correo_electronico = $5, es_frecuente = $6 WHERE ci_cliente = $7 RETURNING *', [nombre, direccion, telefono_principal, telefono_secundario, correo_electronico, es_frecuente, ci_cliente]);
+    
+                        res.status(200).json({
+                            success: true,
+                            message: "Cliente actualizado con exito",
+                            items: response.rows
+                        });  
                     }
                 } else {
                     const {nombre, direccion, telefono_principal, telefono_secundario, correo_electronico, es_frecuente} = req.body;

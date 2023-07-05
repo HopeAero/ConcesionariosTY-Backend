@@ -20,7 +20,7 @@ CREATE TABLE CIUDAD (
     CONSTRAINT fk_id_estado FOREIGN KEY (id_estado) REFERENCES ESTADO(id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
-CREATE FUNCTION validar_telefono_secundario(p_telefono_secundario BIGINT, p_ci_cliente VARCHAR(8)) RETURNS BOOLEAN AS $$
+CREATE FUNCTION validar_telefono_secundario(p_telefono_secundario VARCHAR(11), p_ci_cliente VARCHAR(8)) RETURNS BOOLEAN AS $$
 BEGIN
   IF p_telefono_secundario IS NOT NULL AND EXISTS (
       SELECT 1 
@@ -46,8 +46,8 @@ CREATE TABLE CLIENTE (
     CI_Cliente cedula PRIMARY KEY,
     nombre dom_nombre NOT NULL,
     direccion VARCHAR(30) NOT NULL,
-    telefono_principal BIGINT NOT NULL UNIQUE,
-    telefono_secundario BIGINT NULL UNIQUE,
+    telefono_principal VARCHAR(11) NOT NULL UNIQUE,
+    telefono_secundario VARCHAR(11) NULL UNIQUE,
     correo_electronico VARCHAR(100) NOT NULL CONSTRAINT ck_correo CHECK (correo_electronico LIKE '%_@%.%'),
     es_frecuente BOOLEAN DEFAULT FALSE,
     CONSTRAINT ck_telefono_secundario_telefono_principal CHECK (

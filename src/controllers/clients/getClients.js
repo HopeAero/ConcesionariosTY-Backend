@@ -1,10 +1,27 @@
 const {pool} = require('./../../databases/db');
 
 const getClients = async (req, res) => {
-    const response = await pool.query('SELECT * FROM cliente');
+    const { page = 1, size = 10 } = req.query;
+
+    const offset = (page - 1) * size;
+    const limit = size;
+
+    const countResponse = await pool.query('SELECT COUNT(*) FROM cliente');
+    const count = parseInt(countResponse.rows[0].count);
+
+    const response = await pool.query('SELECT * FROM cliente ORDER BY ci_cliente OFFSET $1 LIMIT $2', [offset, limit]);
+
+    const totalPages = Math.ceil(count / size);
+
     res.status(200).json({
         success: true,
-        message: "Clientes recuperados con exito",
+        message: "Clientes recuperados con éxito",
+        paginate: {
+            total: count,
+            page: page,
+            pages: totalPages,
+            perPage: size
+        },
         items: response.rows
     });
 }

@@ -22,7 +22,6 @@ const posterClients = async (req, res) => {
             } else {
                 if (telefonoSecundario !== null) {
                     const verifyPhone2 = await pool.query('SELECT * FROM cliente WHERE telefono_secundario = $1', [telefonoSecundario]);
-                    console.log(verifyPhone2.rows.length);                
                     if (verifyPhone2.rows.length !== 0 ) {
                         res.status(404).json({
                             success: false,

@@ -20,6 +20,20 @@ CREATE TABLE CIUDAD (
     CONSTRAINT fk_id_estado FOREIGN KEY (id_estado) REFERENCES ESTADO(id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
+CREATE FUNCTION validar_telefono_secundario() RETURNS BOOLEAN AS $$
+BEGIN
+  IF NEW.telefono_secundario IS NOT NULL AND EXISTS (
+      SELECT 1 
+      FROM CLIENTE 
+      WHERE telefono_principal = NEW.telefono_secundario 
+      AND CI_Cliente <> COALESCE(NEW.CI_Cliente, CI_Cliente)
+  ) THEN
+    RETURN FALSE;
+  END IF;
+  RETURN TRUE;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE TABLE AGENCIA (
     RIF VARCHAR(10) PRIMARY KEY,
     Razon_social VARCHAR(30) NOT NULL,
@@ -34,8 +48,11 @@ CREATE TABLE CLIENTE (
     direccion VARCHAR(30) NOT NULL,
     telefono_principal BIGINT NOT NULL UNIQUE,
     telefono_secundario BIGINT NULL UNIQUE,
-    correo_electronico VARCHAR(100) NOT NULL CONSTRAINT ck_correo CHECK (correo_electronico LIKE '%_@__%.__%'),
-    es_frecuente BOOLEAN DEFAULT FALSE
+    correo_electronico VARCHAR(100) NOT NULL CONSTRAINT ck_correo CHECK (correo_electronico LIKE '%_@%.%'),
+    es_frecuente BOOLEAN DEFAULT FALSE,
+    CONSTRAINT ck_telefono_secundario_telefono_principal CHECK (
+        validar_telefono_secundario()
+    )
 );
 
 CREATE TABLE EMPLEADO (

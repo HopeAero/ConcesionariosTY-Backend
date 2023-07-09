@@ -119,6 +119,7 @@ CREATE TABLE ORDEN_DE_SERVICIO (
     dia_salida_est dom_fechas NOT NULL,
     hora_salida_est TIME NOT NULL,
     retirante_CI cedula NOT NULL,
+    retirante_nombre dom_nombre NOT NULL,
     placa_vehiculo VARCHAR(10) NOT NULL,
     CI_Empleado cedula NOT NULL,
     CONSTRAINT fk_placa_vehiculo FOREIGN KEY (placa_vehiculo) REFERENCES VEHICULO(placa) ON UPDATE CASCADE ON DELETE RESTRICT,
@@ -153,6 +154,11 @@ CREATE TABLE FACTURA (
     CONSTRAINT fk_codigo_orden_servicio FOREIGN KEY (codigo_orden_servicio) REFERENCES ORDEN_DE_SERVICIO(codigo) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
+CREATE TABLE BANCO (
+    nro_tarjeta BIGINT PRIMARY KEY,
+    banco dom_nombre NOT NULL
+);
+
 CREATE TABLE PAGO (
     id INTEGER PRIMARY KEY,
     monto FLOAT NOT NULL CHECK(monto > 0),
@@ -161,6 +167,7 @@ CREATE TABLE PAGO (
     nro_tarjeta BIGINT NOT NULL,
     tipo_pago VARCHAR(3) NOT NULL,
     nro_factura INTEGER not NULL,
+    CONSTRAINT fk_nro_tarjeta FOREIGN KEY (nro_tarjeta) REFERENCES BANCO(nro_tarjeta) ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT fk_nro_factura FOREIGN KEY (nro_factura) REFERENCES FACTURA(nro_factura) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
@@ -232,4 +239,3 @@ CREATE TABLE CONTRATA (
     CONSTRAINT fk_reserva FOREIGN KEY (id_reserva) REFERENCES RESERVA(id_reserva) ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT fk_C_servicio FOREIGN KEY (codigo_servicio) REFERENCES SERVICIO(codigo) ON UPDATE CASCADE ON DELETE RESTRICT
 );
-

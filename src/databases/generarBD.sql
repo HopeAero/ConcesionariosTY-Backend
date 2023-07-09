@@ -49,8 +49,8 @@ CREATE TABLE CLIENTE (
     CI_Cliente cedula PRIMARY KEY,
     nombre dom_nombre NOT NULL,
     direccion VARCHAR(30) NOT NULL,
-    telefono_principal VARCHAR(11) NOT NULL UNIQUE,
-    telefono_secundario VARCHAR(11) NULL UNIQUE,
+    telefono_principal VARCHAR(11) NOT NULL ,
+    telefono_secundario VARCHAR(11) NULL,
     correo_electronico VARCHAR(100) NOT NULL CONSTRAINT ck_correo CHECK (correo_electronico LIKE '%_@%.%'),
     es_frecuente BOOLEAN DEFAULT FALSE,
     CONSTRAINT ck_telefono_secundario_telefono_principal CHECK (

@@ -4,7 +4,7 @@ const updateClient = async (req, res) => {
     try {   
             const ci_cliente = req.params.ci;
             const telefonoPrincipal = req.body.telefono_principal;
-            const telefonoSecundario = req.body.telefono_secundario;
+            const telefonoSecundario = req.body.telefono_secundario === '' ? null : req.body.telefono_secundario;
 
             if (telefonoPrincipal === '' || telefonoPrincipal === undefined) {
                 res.status(404).json({
@@ -30,7 +30,7 @@ const updateClient = async (req, res) => {
                             items: response.rows
                         });      
                     } else {
-                        if (telefonoSecundario !== null && telefonoSecundario !== undefined && telefonoSecundario !== '') {
+                        if (telefonoSecundario !== null && telefonoSecundario !== undefined) {
                             if (telefonoPrincipal === telefonoSecundario) {
                             res.status(404).json({
                                 success: false,
@@ -51,7 +51,7 @@ const updateClient = async (req, res) => {
                         } else {
                             const {nombre, direccion, telefono_principal, correo_electronico, es_frecuente} = req.body;
                             const response = await pool.query(
-                                'UPDATE cliente SET nombre = $1, direccion = $2, telefono_principal = $3, correo_electronico = $4, es_frecuente = $5 WHERE ci_cliente = $6 RETURNING *', [nombre, direccion, telefono_principal ,correo_electronico, es_frecuente, ci_cliente]);
+                                'UPDATE cliente SET nombre = $1, direccion = $2, telefono_principal = $3, correo_electronico = $4, es_frecuente = $5 WHERE ci_cliente = $6 RETURNING *', [nombre, direccion, telefono_principal, correo_electronico, es_frecuente, ci_cliente]);
                                 res.status(200).json({
                                     success: true,
                                     message: "Cliente actualizado con exito",

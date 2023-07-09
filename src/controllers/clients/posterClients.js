@@ -12,7 +12,7 @@ const posterClients = async (req, res) => {
             });
         } else {
             const telefonoPrincipal = req.body.telefono_principal;
-            const telefonoSecundario = req.body.telefono_secundario;
+            const telefonoSecundario = req.body.telefono_secundario === '' ? null : req.body.telefono_secundario;
             
             if (telefonoPrincipal === '' || telefonoPrincipal === undefined || telefonoPrincipal === null) {
                 res.status(404).json({
@@ -25,7 +25,7 @@ const posterClients = async (req, res) => {
                     message: "Telefono secundario debe tener maximo 11 digitos",
                 });
             } else {
-                    if (telefonoSecundario !== null && telefonoSecundario !== undefined && telefonoSecundario !== '') {
+                    if (telefonoSecundario !== null && telefonoSecundario !== undefined) {
                         if (telefonoPrincipal === telefonoSecundario) {
                             res.status(404).json({
                                 success: false,
@@ -43,8 +43,8 @@ const posterClients = async (req, res) => {
                                 });
                             }   
                     } else {
-                            const {ci_cliente, nombre, direccion, telefono_principal, correo_electronico, es_frecuente} = req.body;
-                            const response = await pool.query('INSERT INTO cliente (ci_cliente, nombre, direccion, telefono_principal, telefono_secundario, correo_electronico, es_frecuente) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [ci_cliente, nombre, direccion, telefono_principal, correo_electronico, es_frecuente]);
+                            const {ci_cliente, nombre, direccion, telefono_principal, telefono_secundario, correo_electronico, es_frecuente} = req.body;
+                            const response = await pool.query('INSERT INTO cliente (ci_cliente, nombre, direccion, telefono_principal, telefono_secundario, correo_electronico, es_frecuente) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [ci_cliente, nombre, direccion, telefono_principal,telefono_secundario, correo_electronico, es_frecuente]);
             
                             res.status(200).json({
                                 success: true,

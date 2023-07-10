@@ -57,6 +57,7 @@ const getAgencyByRIF = async (req, res) => {
             success: false,
             message: "Ha ocurrido un problema",
         });
+        console.log(error)
     }
 }
 

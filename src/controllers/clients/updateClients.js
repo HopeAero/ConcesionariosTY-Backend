@@ -3,14 +3,13 @@ const {pool} = require('./../../databases/db');
 const updateClient = async (req, res) => {
     try {   
             const ci_cliente = req.params.ci;
-            const telefonoPrincipal = req.body.telefono_principal;
-            const telefonoSecundario = req.body.telefono_secundario === '' ? null : req.body.telefono_secundario;
+            const telefonoPrincipal = req.body.telefono_principal === undefined ? null : req.body.telefono_principal;
+            const telefonoSecundario = req.body.telefono_secundario === '' || req.body.telefono_secundario === undefined ? null : req.body.telefono_secundario;
 
             if (telefonoPrincipal === '' || telefonoPrincipal === undefined) {
                 res.status(404).json({
                     success: true,
                     message: "Telefono principal ingresado no puede ser nulo",
-                    items: response.rows
                 });
             } else {
                 if (telefonoSecundario !== null && telefonoSecundario.length > 11){

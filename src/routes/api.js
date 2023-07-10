@@ -6,10 +6,13 @@ const apiStateRouter = require('./api/estados');
 const apiCityRouter = require('./api/ciudad');
 const apiSupplyLineRouter = require('./api/linea-suministro');
 const apiAgencyRouter = require('./api/agencia');
+const apiEmployeesRouter = require('./api/empleados');
 
 
 
 router.use('/clientes', apiClientsRouter);
+
+router.use('/empleados', apiEmployeesRouter);
 
 router.use('/estados', apiStateRouter);
 

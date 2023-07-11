@@ -1,9 +1,11 @@
 const router = require('express').Router();
 
-const {getState, getStateById} = require('./../../controllers/State/getState');
+const {getState, getStateById, getAllState} = require('./../../controllers/State/getState');
 const {posterState} = require('./../../controllers/State/posterState');
 const {updateState} = require('./../../controllers/State/updateState');
 const {deleteState} = require('./../../controllers/State/deleteState');
+
+router.get('/all', getAllState);
 
 router.get('/', getState);
 

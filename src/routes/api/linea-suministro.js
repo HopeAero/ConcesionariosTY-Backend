@@ -1,8 +1,10 @@
 const router = require('express').Router();
-const {getLine, getLineByCode} = require('./../../controllers/supply-line/getLine');
+const {getLine, getLineByCode, getAllLine} = require('./../../controllers/supply-line/getLine');
 const {posterLine} = require('./../../controllers/supply-line/posterLine');
 const {updateLine} = require('./../../controllers/supply-line/updateLine');
 const {deleteLine} = require('./../../controllers/supply-line/deleteLine');
+
+router.get('/all', getAllLine);
 
 router.get('/', getLine);
 

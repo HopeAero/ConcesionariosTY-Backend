@@ -7,6 +7,7 @@ const apiCityRouter = require('./api/ciudad');
 const apiSupplyLineRouter = require('./api/linea-suministro');
 const apiAgencyRouter = require('./api/agencia');
 const apiEmployeesRouter = require('./api/empleados');
+const apiAnalystsRouter = require('./api/analistas');
 
 
 
@@ -21,6 +22,9 @@ router.use('/ciudad', apiCityRouter);
 router.use('/linea-suministro', apiSupplyLineRouter);
 
 router.use('/agencias', apiAgencyRouter);
+
+router.use('/analistas', apiAnalystsRouter);
+
 
 
 

@@ -5,10 +5,10 @@ CREATE DOMAIN dom_nombre AS VARCHAR(30)
 	CHECK (value ~ '^[a-zA-Z áéíóúÁÉÍÓÚ]+$' AND TRIM(value) <> '');
 
 CREATE DOMAIN cedula VARCHAR(8)
-    CHECK (VALUE ~ '^[0-9]*$')
+    CHECK (VALUE ~ '^[0-9]*$');
 
 CREATE DOMAIN rif VARCHAR(10)
-    CHECK (VALUE ~ '^[0-9]*$')
+    CHECK (VALUE ~ '^[0-9]*$');
 
 CREATE TABLE ESTADO (
     id SERIAL PRIMARY KEY,

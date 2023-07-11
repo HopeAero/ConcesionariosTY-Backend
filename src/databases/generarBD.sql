@@ -64,7 +64,7 @@ CREATE TABLE EMPLEADO (
     direccion VARCHAR(30) NOT NULL,
     sueldo FLOAT NOT NULL CHECK (sueldo > 0),
     telefono_principal VARCHAR(11) NOT NULL UNIQUE,
-    cargo_ocupado VARCHAR(15) NOT NULL,
+    cargo_ocupado VARCHAR(30) NOT NULL,
     tipo_empleado VARCHAR(10) NOT NULL
 );
 

@@ -12,7 +12,7 @@ const updateModel = async (req, res) => {
             });
         } else {
             const { nombre, tipo_refrigerante, cantidad_puestos, peso, aceite_motor, gasolina_recomendada, marca} = req.body;
-            const response = await pool.query('UPDATE modelo SET nombre = $1, tipo_refrigerante = $2, cantidad_puestos = $3, peso = $4, aceite_motor = $5, gasolina_recomendada = $6, marca = $7 WHERE cogido = $8  RETURNING *', [nombre, tipo_refrigerante, cantidad_puestos, peso, aceite_motor, gasolina_recomendada, marca, cod]);
+            const response = await pool.query('UPDATE modelo SET nombre = $1, tipo_refrigerante = $2, cantidad_puestos = $3, peso = $4, aceite_motor = $5, gasolina_recomendada = $6, marca = $7 WHERE codigo = $8  RETURNING *', [nombre, tipo_refrigerante, cantidad_puestos, peso, aceite_motor, gasolina_recomendada, marca, cod]);
 
             res.status(200).json({
                 success: true,

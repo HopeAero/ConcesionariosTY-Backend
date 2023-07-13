@@ -154,7 +154,7 @@ CREATE TABLE FACTURA (
     CONSTRAINT fk_codigo_orden_servicio FOREIGN KEY (codigo_orden_servicio) REFERENCES ORDEN_DE_SERVICIO(codigo) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
-CREATE TABLE BANCO (
+CREATE TABLE TARJETA (
     nro_tarjeta BIGINT PRIMARY KEY,
     banco dom_nombre NOT NULL
 );

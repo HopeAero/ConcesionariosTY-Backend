@@ -4,7 +4,7 @@ const posterBanks = async (req, res) => {
     try {
         const nro_tarjeta = req.body.nro_tarjeta;
         const verify = await pool.query(
-            "SELECT * FROM banco WHERE nro_tarjeta = $1",
+            "SELECT * FROM tarjeta WHERE nro_tarjeta = $1",
             [nro_tarjeta]
         );
 
@@ -15,7 +15,7 @@ const posterBanks = async (req, res) => {
             });
         } else {
             const {banco} = req.body;
-            const response = await pool.query('INSERT INTO banco (nro_tarjeta, banco) VALUES ($1, $2) RETURNING *', [nro_tarjeta, banco]);
+            const response = await pool.query('INSERT INTO tarjeta (nro_tarjeta, banco) VALUES ($1, $2) RETURNING *', [nro_tarjeta, banco]);
 
             res.status(200).json({
                 success: true,

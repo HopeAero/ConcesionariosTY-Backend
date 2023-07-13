@@ -8,7 +8,7 @@ router.get('/', getEmployees);
 
 router.get('/:ci', getEmployeesByCI);
 
-router.get('/type/:type', getEmployeesByTipo);
+router.get('/type/:tipo_empleado', getEmployeesByTipo);
 
 router.post('/', posterEmployees);
 

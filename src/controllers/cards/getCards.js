@@ -1,6 +1,6 @@
 const {pool} = require('../../databases/db');
 
-const getBanks = async (req, res) => {
+const getCards = async (req, res) => {
     try {
         const { page = 1, size = 10 } = req.query;
 
@@ -64,6 +64,6 @@ const getBanksbyTarjeta = async (req, res) => {
 
 
 module.exports = {
-    getBanks,
+    getCards,
     getBanksbyTarjeta
 }

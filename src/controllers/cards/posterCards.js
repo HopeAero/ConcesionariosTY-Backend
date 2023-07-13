@@ -1,6 +1,6 @@
 const { pool } = require("../../databases/db");
 
-const posterBanks = async (req, res) => {
+const posterCards = async (req, res) => {
     try {
         const nro_tarjeta = req.body.nro_tarjeta;
         const verify = await pool.query(
@@ -34,5 +34,5 @@ const posterBanks = async (req, res) => {
 };
 
 module.exports = {
-    posterBanks,
+    posterCards,
 };

@@ -9,12 +9,15 @@ const apiAgencyRouter = require('./api/agencia');
 const apiEmployeesRouter = require('./api/empleados');
 const apiAnalystsRouter = require('./api/analistas');
 const apiBanksRouter = require('./api/bancos');
+const apiManagersRouter = require('./api/encargado');
 
 
 
 router.use('/clientes', apiClientsRouter);
 
 router.use('/empleados', apiEmployeesRouter);
+
+router.use('/encargados', apiManagersRouter);
 
 router.use('/estados', apiStateRouter);
 

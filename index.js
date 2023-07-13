@@ -1,3 +1,6 @@
+//DOTENV
+require('dotenv').config();
+
 //MODULES
 const express = require('express');
 const app = express();

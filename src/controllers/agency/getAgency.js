@@ -61,7 +61,25 @@ const getAgencyByRIF = async (req, res) => {
     }
 }
 
+const getAgencyAll = async (req, res) => {
+    try {
+        const response = await pool.query('SELECT * FROM agencia');
+        res.status(200).json({
+            success: true,
+            message: "Agencias recuperadas con éxito",
+            items: response.rows
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Ha ocurrido un problema",
+        });
+        console.log(error);    
+    }
+}
+
 module.exports = {
     getAgency,
-    getAgencyByRIF
+    getAgencyByRIF,
+    getAgencyAll
 }

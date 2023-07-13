@@ -12,8 +12,7 @@ const posterClients = async (req, res) => {
             });
         } else {
             const telefonoPrincipal = req.body.telefono_principal;
-            const telefonoSecundario = req.body.telefono_secundario === '' ? null : req.body.telefono_secundario;
-            
+            const telefonoSecundario = req.body.telefono_secundario !== undefined && req.body.telefono_secundario !== '' ? req.body.telefono_secundario : null;            
             if (telefonoPrincipal === '' || telefonoPrincipal === undefined || telefonoPrincipal === null) {
                 res.status(404).json({
                     success: false,

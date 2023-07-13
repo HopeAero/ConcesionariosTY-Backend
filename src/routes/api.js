@@ -12,28 +12,8 @@ const apiBanksRouter = require('./api/tarjetas');
 const apiManagersRouter = require('./api/encargado');
 const apiModelsRouter = require('./api/modelos');
 
-
-
 router.use('/clientes', apiClientsRouter);
 router.use('/modelos', apiModelsRouter);
-
-router.use('/empleados', apiEmployeesRouter);
-
-router.use('/encargados', apiManagersRouter);
-
-router.use('/estados', apiStateRouter);
-
-router.use('/ciudad', apiCityRouter);
-
-router.use('/linea-suministro', apiSupplyLineRouter);
-
-router.use('/agencias', apiAgencyRouter);
-
-router.use('/analistas', apiAnalystsRouter);
-
-router.use('/tarjetas', apiBanksRouter);
-
-
 
 
 module.exports = router;

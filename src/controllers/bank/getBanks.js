@@ -7,10 +7,10 @@ const getBanks = async (req, res) => {
         const offset = (page - 1) * size;
         const limit = size;
 
-        const countResponse = await pool.query('SELECT COUNT(*) FROM banco');
+        const countResponse = await pool.query('SELECT COUNT(*) FROM tarjeta');
         const count = parseInt(countResponse.rows[0].count);
 
-        const response = await pool.query('SELECT * FROM banco ORDER BY nro_tarjeta OFFSET $1 LIMIT $2', [offset, limit]);
+        const response = await pool.query('SELECT * FROM tarjeta ORDER BY nro_tarjeta OFFSET $1 LIMIT $2', [offset, limit]);
 
         const totalPages = Math.ceil(count / size);
 
@@ -38,7 +38,7 @@ const getBanks = async (req, res) => {
 const getBanksbyTarjeta = async (req, res) => {
     try {
         const nro_tarjeta = req.params.nro_tarjeta;
-        const response = await pool.query('SELECT * FROM banco WHERE nro_tarjeta = $1', [nro_tarjeta]);
+        const response = await pool.query('SELECT * FROM tarjeta WHERE nro_tarjeta = $1', [nro_tarjeta]);
 
         if (response.rows.length === 0) {
             res.status(404).json({

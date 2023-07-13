@@ -5,7 +5,7 @@ const deleteBank = async (req, res) => {
         const nro_tarjeta = req.params.nro_tarjeta;
 
         const verify = await pool.query(
-            "SELECT * FROM banco WHERE nro_tarjeta = $1",
+            "SELECT * FROM tarjeta WHERE nro_tarjeta = $1",
             [nro_tarjeta]
         );
         if (verify.rows.length === 0) {
@@ -14,7 +14,7 @@ const deleteBank = async (req, res) => {
                 message: "No existe registro de la tarjeta",
             });
         } else {
-            await pool.query("DELETE FROM banco WHERE nro_tarjeta = $1", [nro_tarjeta]);
+            await pool.query("DELETE FROM tarjeta WHERE nro_tarjeta = $1", [nro_tarjeta]);
             res.status(200).json({
                 success: true,
                 message: "Tarjeta eliminada con exito",

@@ -11,9 +11,32 @@ const apiAnalystsRouter = require('./api/analistas');
 const apiBanksRouter = require('./api/tarjetas');
 const apiManagersRouter = require('./api/encargado');
 const apiModelsRouter = require('./api/modelos');
+const apiVehiclesRouter = require('./api/vehiculos');
+
+
 
 router.use('/clientes', apiClientsRouter);
 router.use('/modelos', apiModelsRouter);
+
+router.use('/empleados', apiEmployeesRouter);
+
+router.use('/encargados', apiManagersRouter);
+
+router.use('/estados', apiStateRouter);
+
+router.use('/ciudad', apiCityRouter);
+
+router.use('/linea-suministro', apiSupplyLineRouter);
+
+router.use('/agencias', apiAgencyRouter);
+
+router.use('/analistas', apiAnalystsRouter);
+
+router.use('/tarjetas', apiBanksRouter);
+
+router.use('/vehiculos', apiVehiclesRouter);
+
+router.use('/vehiculos', apiVehiclesRouter);
 
 
 module.exports = router;

@@ -62,8 +62,36 @@ const getEmployeesByCI = async (req, res) => {
     }
 }
 
+const getEmployeesByTipo = async (req, res) => {
+    try {
+        const tipo_empleado = req.params.tipo_empleado;
+        const response = await pool.query('SELECT * FROM empleado WHERE tipo_empleado = $1', [tipo_empleado]);
+
+        if (response.rows.length === 0) {
+            res.status(404).json({
+                success: false,
+                message: "No existe empleado de este tipo",
+            });
+        } else {
+            res.status(200).json({
+                success: true,
+                message: `${tipo_empleado} recuperado con exito`,
+                items: response.rows
+            });
+        }
+
+    } catch(error) {
+        res.status(500).json({
+            success: false,
+            message: "Ha ocurrido un problema",
+        });
+        cons
+    }
+}
+
 
 module.exports = {
     getEmployees,
-    getEmployeesByCI
+    getEmployeesByCI,
+    getEmployeesByTipo
 }

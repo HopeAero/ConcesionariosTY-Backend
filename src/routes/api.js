@@ -8,7 +8,7 @@ const apiSupplyLineRouter = require('./api/linea-suministro');
 const apiAgencyRouter = require('./api/agencia');
 const apiEmployeesRouter = require('./api/empleados');
 const apiAnalystsRouter = require('./api/analistas');
-const apiBanksRouter = require('./api/bancos');
+const apiBanksRouter = require('./api/tarjetas');
 const apiManagersRouter = require('./api/encargado');
 
 
@@ -29,7 +29,8 @@ router.use('/agencias', apiAgencyRouter);
 
 router.use('/analistas', apiAnalystsRouter);
 
-router.use('/bancos', apiBanksRouter);
+router.use('/tarjetas', apiBanksRouter);
+
 
 
 

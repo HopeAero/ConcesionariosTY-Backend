@@ -1,6 +1,6 @@
 const { pool } = require("../../databases/db");
 
-const deleteBank = async (req, res) => {
+const deleteCard = async (req, res) => {
     try {
         const nro_tarjeta = req.params.nro_tarjeta;
 
@@ -30,5 +30,5 @@ const deleteBank = async (req, res) => {
 };
 
 module.exports = {
-    deleteBank,
+    deleteCard,
 };

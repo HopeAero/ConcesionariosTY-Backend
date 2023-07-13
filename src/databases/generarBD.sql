@@ -190,9 +190,12 @@ CREATE TABLE ENCARGADO (
     CI_Empleado cedula PRIMARY KEY,
     telefono_secundario VARCHAR(11) NOT NULL UNIQUE,
     correo_electronico VARCHAR(30) NOT NULL,
-    rif_agencia rif NOT NULL,
+    rif_agencia rif NOT NULL UNIQUE,
     CONSTRAINT fk_E_empleado FOREIGN KEY (CI_Empleado) REFERENCES EMPLEADO(CI_Empleado) ON UPDATE CASCADE ON DELETE RESTRICT,
-    CONSTRAINT fk_E_agencia FOREIGN KEY (rif_agencia) REFERENCES AGENCIA(RIF) ON UPDATE CASCADE ON DELETE RESTRICT
+    CONSTRAINT fk_E_agencia FOREIGN KEY (rif_agencia) REFERENCES AGENCIA(RIF) ON UPDATE CASCADE ON DELETE RESTRICT,
+    CONSTRAINT ck_telefono_secundario_telefono_principal CHECK (
+        validar_telefono_secundario(telefono_secundario, CI_Empleado)
+    )
 );
 
 CREATE TABLE ESPECIALIZA (

@@ -85,7 +85,7 @@ const getEmployeesByTipo = async (req, res) => {
             success: false,
             message: "Ha ocurrido un problema",
         });
-        cons
+        console.log(error);
     }
 }
 

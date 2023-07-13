@@ -53,3 +53,7 @@ const updaterManager = async (req, res) => {
         })
     }
 }
+
+module.exports = {
+    updaterManager
+}

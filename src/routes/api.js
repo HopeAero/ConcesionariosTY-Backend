@@ -6,13 +6,19 @@ const apiEmployeesRouter = require('./api/empleados');
 const apiManagersRouter = require('./api/encargado');
 const apiAnalystsRouter = require('./api/analistas');
 const apiAgencyRouter = require('./api/agencia');
+const apiServiceRouter = require('./api/servicio');
 
 router.use('/clientes', apiClientsRouter);
+
 router.use('/empleados', apiEmployeesRouter);
+
 router.use('/encargados', apiManagersRouter);
+
 router.use('/analistas', apiAnalystsRouter);
 
 router.use('/agencias', apiAgencyRouter);
+
+router.use('/servicios', apiServiceRouter);
 
 
 module.exports = router;

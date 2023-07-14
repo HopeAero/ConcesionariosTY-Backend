@@ -12,7 +12,6 @@ const apiBanksRouter = require('./api/tarjetas');
 const apiManagersRouter = require('./api/encargado');
 const apiModelsRouter = require('./api/modelos');
 const apiVehiclesRouter = require('./api/vehiculos');
-const apiAgencyRouter = require('./api/agencia');
 const apiServiceRouter = require('./api/servicio');
 
 

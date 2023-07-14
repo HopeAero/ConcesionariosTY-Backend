@@ -25,10 +25,6 @@ const updateProduct = async (req, res) => {
       [codigo_linea_sNew]
     );
 
-    console.log(codigo);
-    console.log(codigo_linea_s);
-    console.log(codigo_linea_sNew);
-
     if (verify.rows.length === 0 || verify2.rows.length === 0) {
       res.status(404).json({
         success: false,

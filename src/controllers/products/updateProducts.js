@@ -5,7 +5,6 @@ const updateProduct = async (req, res) => {
     const codigo = req.params.codigo;
     const codigo_linea_s = req.params.codigo_linea_s;
     const {
-      codigo_linea_sNew,
       nombre_corto,
       descripcion,
       es_ecologico,
@@ -22,12 +21,8 @@ const updateProduct = async (req, res) => {
     );
     const verify2 = await pool.query(
       "SELECT * FROM linea_suministro WHERE codigo = $1",
-      [codigo_linea_sNew]
+      [codigo_linea_s]
     );
-
-    console.log(codigo);
-    console.log(codigo_linea_s);
-    console.log(codigo_linea_sNew);
 
     if (verify.rows.length === 0 || verify2.rows.length === 0) {
       res.status(404).json({
@@ -38,7 +33,7 @@ const updateProduct = async (req, res) => {
       const response = await pool.query(
         "UPDATE producto SET codigo_linea_s = $1, nombre_corto = $2, descripcion = $3, es_ecologico = $4, precio = $5, existencia = $6, existencia_minima = $7, existencia_maxima = $8, proveedor = $9 WHERE codigo = $10 AND codigo_linea_s = $11 RETURNING *",
         [
-          codigo_linea_sNew,
+          codigo_linea_s,
           nombre_corto,
           descripcion,
           es_ecologico,

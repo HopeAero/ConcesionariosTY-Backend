@@ -3,14 +3,13 @@ const {pool} = require('../../databases/db');
 const deleteProduct = async (req, res) => {
     try {
         const codigo = req.params.codigo;
-        const codigo_linea_s = req.params.codigo_linea_s;
 
-        const response = await pool.query('DELETE FROM producto WHERE codigo = $1 AND codigo_linea_s = $2', [codigo, codigo_linea_s]);
+        const response = await pool.query('DELETE FROM producto WHERE codigo = $1', [codigo]);
 
         if (response.rowCount === 0) {
             res.status(404).json({
                 success: false,
-                message: "No existe producto con este codigo de suministro o al contrario",
+                message: "No existe producto con este codigo",
             });
         } else {
             res.status(200).json({

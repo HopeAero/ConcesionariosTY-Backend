@@ -12,8 +12,8 @@ router.get('/:codigo_linea_s', getProductByCodLinea);
 
 router.post('/', posterProduct);
 
-router.put('/:codigo_linea_s/:codigo', updateProduct);
+router.put('/:codigo', updateProduct);
 
-router.delete('/:codigo_linea_s/:codigo', deleteProduct);
+router.delete('/:codigo', deleteProduct);
 
 module.exports = router;

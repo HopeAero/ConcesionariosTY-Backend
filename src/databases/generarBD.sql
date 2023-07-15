@@ -112,12 +112,9 @@ CREATE TABLE ANALISTA (
 
 CREATE TABLE ORDEN_DE_SERVICIO (
     codigo INTEGER PRIMARY KEY,
-    dia_entrada dom_fechas NOT NULL,
-    hora_entrada TIME NOT NULL,
-    dia_salida_real dom_fechas NOT NULL,
-    hora_salida_real TIME NOT NULL,
-    dia_salida_est dom_fechas NOT NULL,
-    hora_salida_est TIME NOT NULL,
+    fecha_entrada TIMESTAMP NOT NULL,
+    fecha_salida_real TIMESTAMP NOT NULL,
+    fecha_salida_est TIMESTAMP NOT NULL,
     retirante_CI cedula NOT NULL,
     retirante_nombre dom_nombre NOT NULL,
     placa_vehiculo VARCHAR(10) NOT NULL,

@@ -15,7 +15,7 @@ const apiVehiclesRouter = require('./api/vehiculos');
 const apiServiceRouter = require('./api/servicio');
 const apiActivityRouter = require('./api/actividad');
 const apiServiceOrderRouter = require('./api/orden-servicio');
-
+const apiWorkRouter = require('./api/trabaja');
 
 
 router.use('/clientes', apiClientsRouter);
@@ -45,6 +45,8 @@ router.use('/servicios', apiServiceRouter);
 router.use('/actividades', apiActivityRouter);
 
 router.use('/orden-servicio', apiServiceOrderRouter);
+
+router.use('/trabaja', apiWorkRouter)
 
 
 module.exports = router;

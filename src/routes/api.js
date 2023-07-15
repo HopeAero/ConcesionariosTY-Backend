@@ -12,6 +12,7 @@ const apiBanksRouter = require('./api/tarjetas');
 const apiManagersRouter = require('./api/encargado');
 const apiModelsRouter = require('./api/modelos');
 const apiVehiclesRouter = require('./api/vehiculos');
+const apiServiceOrderRouter = require('./api/orden-servicio');
 
 
 
@@ -37,6 +38,8 @@ router.use('/tarjetas', apiBanksRouter);
 router.use('/vehiculos', apiVehiclesRouter);
 
 router.use('/vehiculos', apiVehiclesRouter);
+
+router.use('/orden-servicio', apiServiceOrderRouter);
 
 
 module.exports = router;

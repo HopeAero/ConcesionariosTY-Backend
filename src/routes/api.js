@@ -8,8 +8,11 @@ const apiAnalystsRouter = require('./api/analistas');
 const apiAgencyRouter = require('./api/agencia');
 const apiServiceRouter = require('./api/servicio');
 const apiActivityRouter = require('./api/actividad');
+const apiModelsRouter = require('./api/modelos');
 
 router.use('/clientes', apiClientsRouter);
+
+router.use('/modelos', apiModelsRouter);
 
 router.use('/empleados', apiEmployeesRouter);
 

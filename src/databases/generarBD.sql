@@ -96,11 +96,12 @@ CREATE TABLE VEHICULO (
 CREATE TABLE SERVICIO (
     codigo INTEGER PRIMARY KEY,
     nombre dom_nombre NOT NULL,
-    tiempo_reserva dom_fechas NOT NULL,
+    tiempo_reserva interval NOT NULL,
     descripcion_detallada VARCHAR(40) NOT NULL,
     costo_hora_hombre FLOAT NOT NULL,
     RIF_agencia rif NOT NULL,
     CI_Empleado cedula NOT NULL,
+    CONSTRAINT ck_tiempo_reserva CHECK (tiempo_reserva >= INTERVAL '1 day' AND tiempo_reserva <= INTERVAL '1 week'),
     CONSTRAINT fk_RIF_agencia FOREIGN KEY (RIF_agencia) REFERENCES AGENCIA(RIF) ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT fk_S_empleado FOREIGN KEY (CI_Empleado) REFERENCES EMPLEADO(CI_Empleado) ON UPDATE CASCADE ON DELETE RESTRICT
 );
@@ -171,6 +172,7 @@ CREATE TABLE PAGO (
 CREATE TABLE RESERVA (
     id_reserva INTEGER PRIMARY KEY,
     placa_vehiculo VARCHAR(10) NOT NULL,
+    fecha_reserva date NOT NULL,
     CONSTRAINT fk_R_placa_vehiculo FOREIGN KEY (placa_vehiculo) REFERENCES VEHICULO(placa) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 

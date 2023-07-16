@@ -10,6 +10,9 @@ CREATE DOMAIN cedula VARCHAR(8)
 CREATE DOMAIN rif VARCHAR(10)
     CHECK (VALUE ~ '^[0-9]*$');
 
+CREATE DOMAIN tipo_pago AS VARCHAR(3)
+    CHECK (VALUE IN ('USD', 'BSS', 'TBS', 'TDS'));
+
 CREATE TABLE ESTADO (
     id SERIAL PRIMARY KEY,
     nombre dom_nombre NOT NULL
@@ -113,12 +116,9 @@ CREATE TABLE ANALISTA (
 
 CREATE TABLE ORDEN_DE_SERVICIO (
     codigo INTEGER PRIMARY KEY,
-    dia_entrada dom_fechas NOT NULL,
-    hora_entrada TIME NOT NULL,
-    dia_salida_real dom_fechas NOT NULL,
-    hora_salida_real TIME NOT NULL,
-    dia_salida_est dom_fechas NOT NULL,
-    hora_salida_est TIME NOT NULL,
+    fecha_entrada TIMESTAMP NOT NULL,
+    fecha_salida_real TIMESTAMP NOT NULL,
+    fecha_salida_est TIMESTAMP NOT NULL,
     retirante_CI cedula NOT NULL,
     retirante_nombre dom_nombre NOT NULL,
     placa_vehiculo VARCHAR(10) NOT NULL,
@@ -155,7 +155,7 @@ CREATE TABLE FACTURA (
     CONSTRAINT fk_codigo_orden_servicio FOREIGN KEY (codigo_orden_servicio) REFERENCES ORDEN_DE_SERVICIO(codigo) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
-CREATE TABLE BANCO (
+CREATE TABLE TARJETA (
     nro_tarjeta BIGINT PRIMARY KEY,
     banco dom_nombre NOT NULL
 );
@@ -165,8 +165,8 @@ CREATE TABLE PAGO (
     monto FLOAT NOT NULL CHECK(monto > 0),
     fecha dom_fechas NOT NULL,
     nro_rif rif NOT NULL,
-    nro_tarjeta BIGINT NOT NULL,
-    tipo_pago VARCHAR(3) NOT NULL,
+    nro_tarjeta BIGINT NULL,
+    tipo_pago tipo_pago NOT NULL,
     nro_factura INTEGER not NULL,
     CONSTRAINT fk_nro_tarjeta FOREIGN KEY (nro_tarjeta) REFERENCES BANCO(nro_tarjeta) ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT fk_nro_factura FOREIGN KEY (nro_factura) REFERENCES FACTURA(nro_factura) ON UPDATE CASCADE ON DELETE RESTRICT
@@ -175,7 +175,6 @@ CREATE TABLE PAGO (
 CREATE TABLE RESERVA (
     id_reserva INTEGER PRIMARY KEY,
     placa_vehiculo VARCHAR(10) NOT NULL,
-    fecha_reserva date NOT NULL,
     CONSTRAINT fk_R_placa_vehiculo FOREIGN KEY (placa_vehiculo) REFERENCES VEHICULO(placa) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 

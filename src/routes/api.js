@@ -10,6 +10,8 @@ const apiServiceRouter = require('./api/servicio');
 const apiActivityRouter = require('./api/actividad');
 const apiModelsRouter = require('./api/modelos');
 const apiVehiclesRouter = require('./api/vehiculos');
+const apiReserveRouter = require('./api/reserva');
+const { ro } = require('date-fns/locale');
 
 router.use('/clientes', apiClientsRouter);
 
@@ -29,5 +31,6 @@ router.use('/actividades', apiActivityRouter);
 
 router.use('/vehiculos', apiVehiclesRouter);
 
+router.use('/reservas', apiReserveRouter);
 
 module.exports = router;

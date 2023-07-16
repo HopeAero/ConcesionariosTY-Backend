@@ -9,6 +9,7 @@ const apiAgencyRouter = require('./api/agencia');
 const apiServiceRouter = require('./api/servicio');
 const apiActivityRouter = require('./api/actividad');
 const apiModelsRouter = require('./api/modelos');
+const apiVehiclesRouter = require('./api/vehiculos');
 
 router.use('/clientes', apiClientsRouter);
 
@@ -25,5 +26,8 @@ router.use('/agencias', apiAgencyRouter);
 router.use('/servicios', apiServiceRouter);
 
 router.use('/actividades', apiActivityRouter);
+
+router.use('/vehiculos', apiVehiclesRouter);
+
 
 module.exports = router;

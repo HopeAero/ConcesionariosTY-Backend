@@ -1,4 +1,5 @@
 const {pool} = require('../../databases/db');
+const moment = require('moment');
 
 const posterService = async (req, res) => {
     try {
@@ -9,13 +10,9 @@ const posterService = async (req, res) => {
         const verify3 = await pool.query('SELECT * FROM agencia WHERE rif = $1', [rif_agencia]);
         const verify4 = await pool.query('SELECT * FROM empleado WHERE ci_empleado = $1', [ci_empleado]);
         let costo_hora_hombre = parseFloat(precioConsulta.rows[0].sum);
-        const fechaIngresada = new Date(tiempo_reserva); // Convertimos la cadena a un objeto Date
-        const fechaActual = new Date(); // Obtenemos la fecha actual
-
-        // Calculamos la diferencia en días entre las dos fechas
-        const diferenciaMilisegundos = fechaIngresada.getTime() - fechaActual.getTime();
-        const diferenciaDias = Math.ceil(Math.abs(diferenciaMilisegundos) / (1000 * 60 * 60 * 24));
-
+        
+        const regexIntervalo = /^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)D)?(T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$/;
+        const intervalo = moment.duration(tiempo_reserva);
 
         if (verify.rows.length !== 0) {
             res.status(409).json({
@@ -44,18 +41,25 @@ const posterService = async (req, res) => {
                                 message: "No existe empleado con esta cedula de identidad",
                             });
                         } else {
-                            if (diferenciaDias < 1 || diferenciaDias > 7) {
+                            if (!regexIntervalo.test(tiempo_reserva)) {
                                 res.status(400).json({
                                     success: false,
-                                    message: "El tiempo de reserva debe ser entre 1 y 7 dias"
+                                    message: "El valor de tiempo_reserva no es un intervalo de tiempo válido."
                                 });
                             } else {
-                                const response = await pool.query('INSERT INTO servicio (codigo, nombre, tiempo_reserva, descripcion_detallada, costo_hora_hombre, rif_agencia, ci_empleado) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [codigo, nombre, tiempo_reserva, descripcion_detallada, costo_hora_hombre, rif_agencia, ci_empleado]);
-                                res.status(200).json({
-                                    success: true,
-                                    message: "Servicio insertado con exito",
-                                    items: response.rows
-                                });
+                                if (intervalo.asDays() < 1 || intervalo.asDays() > 7) {
+                                    res.status(400).json({
+                                        success: false,
+                                        message: "El tiempo de reserva debe ser entre 1 y 7 dias"
+                                    });
+                                } else {
+                                    const response = await pool.query('INSERT INTO servicio (codigo, nombre, tiempo_reserva, descripcion_detallada, costo_hora_hombre, rif_agencia, ci_empleado) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [codigo, nombre, tiempo_reserva, descripcion_detallada, costo_hora_hombre, rif_agencia, ci_empleado]);
+                                        res.status(200).json({
+                                            success: true,
+                                            message: "Servicio insertado con exito",
+                                            items: response.rows
+                                        });
+                                    }
                             }
                         }
                     }
@@ -73,18 +77,25 @@ const posterService = async (req, res) => {
                             message: "No existe empleado con esta cedula de identidad",
                         });
                     } else {
-                        if (diferenciaDias < 1 || diferenciaDias > 7) {
+                        if (!regexIntervalo.test(tiempo_reserva)) {
                             res.status(400).json({
                                 success: false,
-                                message: "El tiempo de reserva debe ser entre 1 y 7 dias"
+                                message: "El valor de tiempo_reserva no es un intervalo de tiempo válido."
                             });
                         } else {
-                            const response = await pool.query('INSERT INTO servicio (codigo, nombre, tiempo_reserva, descripcion_detallada, costo_hora_hombre, rif_agencia, ci_empleado) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [codigo, nombre, tiempo_reserva, descripcion_detallada, costo_hora_hombre, rif_agencia, ci_empleado]);
-                            res.status(200).json({
-                            success: true,
-                            message: "Servicio insertado con exito",
-                            items: response.rows
-                            });
+                            if (intervalo.asDays() < 1 || intervalo.asDays() > 7) {
+                                res.status(400).json({
+                                    success: false,
+                                    message: "El tiempo de reserva debe ser entre 1 y 7 dias"
+                                });
+                            } else {
+                                const response = await pool.query('INSERT INTO servicio (codigo, nombre, tiempo_reserva, descripcion_detallada, costo_hora_hombre, rif_agencia, ci_empleado) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', [codigo, nombre, tiempo_reserva, descripcion_detallada, costo_hora_hombre, rif_agencia, ci_empleado]);
+                                    res.status(200).json({
+                                        success: true,
+                                        message: "Servicio insertado con exito",
+                                        items: response.rows
+                                    });
+                            }
                         }
                     }
                 }

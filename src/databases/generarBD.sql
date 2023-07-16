@@ -10,6 +10,9 @@ CREATE DOMAIN cedula VARCHAR(8)
 CREATE DOMAIN rif VARCHAR(10)
     CHECK (VALUE ~ '^[0-9]*$');
 
+CREATE DOMAIN tipo_pago AS VARCHAR(3)
+   CHECK (VALUE IN ('USD', 'BSS', 'TBS', 'TDS'));
+
 CREATE TABLE ESTADO (
     id SERIAL PRIMARY KEY,
     nombre dom_nombre NOT NULL
@@ -161,10 +164,10 @@ CREATE TABLE PAGO (
     monto FLOAT NOT NULL CHECK(monto > 0),
     fecha dom_fechas NOT NULL,
     nro_rif rif NOT NULL,
-    nro_tarjeta BIGINT NOT NULL,
-    tipo_pago VARCHAR(3) NOT NULL,
+    nro_tarjeta BIGINT NULL,
+    tipo_pago tipo_pago NOT NULL,
     nro_factura INTEGER not NULL,
-    CONSTRAINT fk_nro_tarjeta FOREIGN KEY (nro_tarjeta) REFERENCES BANCO(nro_tarjeta) ON UPDATE CASCADE ON DELETE RESTRICT,
+    CONSTRAINT fk_nro_tarjeta FOREIGN KEY (nro_tarjeta) REFERENCES TARJETA(nro_tarjeta) ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT fk_nro_factura FOREIGN KEY (nro_factura) REFERENCES FACTURA(nro_factura) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 

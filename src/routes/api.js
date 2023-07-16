@@ -13,10 +13,14 @@ const apiManagersRouter = require('./api/encargado');
 const apiModelsRouter = require('./api/modelos');
 const apiVehiclesRouter = require('./api/vehiculos');
 const apiServiceOrderRouter = require('./api/orden-servicio');
+const apiReserveRouter = require('./api/reserva');
+const apiActivityRouter = require('./api/actividad');
+const apiServiceRouter = require('./api/servicio');
 
 
 
 router.use('/clientes', apiClientsRouter);
+
 router.use('/modelos', apiModelsRouter);
 
 router.use('/empleados', apiEmployeesRouter);
@@ -40,6 +44,12 @@ router.use('/vehiculos', apiVehiclesRouter);
 router.use('/vehiculos', apiVehiclesRouter);
 
 router.use('/orden-servicio', apiServiceOrderRouter);
+
+router.use('/actividades', apiActivityRouter);
+
+router.use('/reservas', apiReserveRouter);
+
+router.use('/servicios', apiServiceRouter);
 
 
 module.exports = router;

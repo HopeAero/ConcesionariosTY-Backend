@@ -10,6 +10,9 @@ CREATE DOMAIN cedula VARCHAR(8)
 CREATE DOMAIN rif VARCHAR(10)
     CHECK (VALUE ~ '^[0-9]*$');
 
+CREATE DOMAIN tipo_pago AS VARCHAR(3)
+    CHECK (VALUE IN ('USD', 'BSS', 'TBS', 'TDS'));
+
 CREATE TABLE ESTADO (
     id SERIAL PRIMARY KEY,
     nombre dom_nombre NOT NULL
@@ -96,11 +99,12 @@ CREATE TABLE VEHICULO (
 CREATE TABLE SERVICIO (
     codigo INTEGER PRIMARY KEY,
     nombre dom_nombre NOT NULL,
-    tiempo_reserva dom_fechas NOT NULL,
+    tiempo_reserva interval NOT NULL,
     descripcion_detallada VARCHAR(40) NOT NULL,
     costo_hora_hombre FLOAT NOT NULL,
     RIF_agencia rif NOT NULL,
     CI_Empleado cedula NOT NULL,
+    CONSTRAINT ck_tiempo_reserva CHECK (tiempo_reserva >= INTERVAL '1 day' AND tiempo_reserva <= INTERVAL '1 week'),
     CONSTRAINT fk_RIF_agencia FOREIGN KEY (RIF_agencia) REFERENCES AGENCIA(RIF) ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT fk_S_empleado FOREIGN KEY (CI_Empleado) REFERENCES EMPLEADO(CI_Empleado) ON UPDATE CASCADE ON DELETE RESTRICT
 );
@@ -161,8 +165,8 @@ CREATE TABLE PAGO (
     monto FLOAT NOT NULL CHECK(monto > 0),
     fecha dom_fechas NOT NULL,
     nro_rif rif NOT NULL,
-    nro_tarjeta BIGINT NOT NULL,
-    tipo_pago VARCHAR(3) NOT NULL,
+    nro_tarjeta BIGINT NULL,
+    tipo_pago tipo_pago NOT NULL,
     nro_factura INTEGER not NULL,
     CONSTRAINT fk_nro_tarjeta FOREIGN KEY (nro_tarjeta) REFERENCES BANCO(nro_tarjeta) ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT fk_nro_factura FOREIGN KEY (nro_factura) REFERENCES FACTURA(nro_factura) ON UPDATE CASCADE ON DELETE RESTRICT

@@ -72,7 +72,7 @@ const updateServiceOrder = async (req, res) => {
                             });
                         } else {
                             const { retirante_ci, retirante_nombre } = req.body;
-                            const response = await pool.query('UPDATE orden_de_servicio SET fecha_entrada = $1, fecha_salida_real = $2, fecha_salida_est = $3, retirante_ci = $4, retirante_nombre = $5, placa_vehiculo = $6, ci_empleado = $7, kilometraje = $8, tiempo_de_uso = $9 WHERE codigo = $10  RETURNING *', [fechaIn, fechaSalReal, fechaSalEst, retirante_ci, retirante_nombre, placa, ci_emp, tiempo_de_uso, kilometraje, cod]);
+                            const response = await pool.query('UPDATE orden_de_servicio SET fecha_entrada = $1, fecha_salida_real = $2, fecha_salida_est = $3, retirante_ci = $4, retirante_nombre = $5, placa_vehiculo = $6, ci_empleado = $7, kilometraje = $8, tiempo_de_uso = $9 WHERE codigo = $10  RETURNING *', [fechaIn, fechaSalReal, fechaSalEst, retirante_ci, retirante_nombre, placa, ci_emp, kilometraje, tiempo_de_uso, cod]);
 
                             res.status(200).json({
                                 success: true,

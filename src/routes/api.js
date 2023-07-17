@@ -1,65 +1,68 @@
-const { Router } = require('express');
+const { Router } = require("express");
 const router = Router();
 
-const apiClientsRouter = require('./api/clientes');
-const apiStateRouter = require('./api/estados');
-const apiCityRouter = require('./api/ciudad');
-const apiSupplyLineRouter = require('./api/linea-suministro');
-const apiAgencyRouter = require('./api/agencia');
-const apiEmployeesRouter = require('./api/empleados');
-const apiAnalystsRouter = require('./api/analistas');
-const apiBanksRouter = require('./api/tarjetas');
-const apiManagersRouter = require('./api/encargado');
-const apiModelsRouter = require('./api/modelos');
-const apiVehiclesRouter = require('./api/vehiculos');
-const apiServiceRouter = require('./api/servicio');
-const apiActivityRouter = require('./api/actividad');
-const apiServiceOrderRouter = require('./api/orden-servicio');
-const apiWorkRouter = require('./api/trabaja');
-const apiReserveRouter = require('./api/reserva');
-const apiSpecializeRouter = require('./api/especializa');
-const apiPaymentRouter = require('./api/pagos');
-const apiDetailRouter = require('./api/detalle');
+const apiClientsRouter = require("./api/clientes");
+const apiStateRouter = require("./api/estados");
+const apiCityRouter = require("./api/ciudad");
+const apiSupplyLineRouter = require("./api/linea-suministro");
+const apiAgencyRouter = require("./api/agencia");
+const apiEmployeesRouter = require("./api/empleados");
+const apiAnalystsRouter = require("./api/analistas");
+const apiBanksRouter = require("./api/tarjetas");
+const apiManagersRouter = require("./api/encargado");
+const apiModelsRouter = require("./api/modelos");
+const apiVehiclesRouter = require("./api/vehiculos");
+const apiServiceRouter = require("./api/servicio");
+const apiActivityRouter = require("./api/actividad");
+const apiServiceOrderRouter = require("./api/orden-servicio");
+const apiWorkRouter = require("./api/trabaja");
+const apiReserveRouter = require("./api/reserva");
+const apiSpecializeRouter = require("./api/especializa");
+const apiPaymentRouter = require("./api/pagos");
+const apiDetailRouter = require("./api/detalle");
+const apiBanksRouter = require("./api/bancos");
+const apiProductsRouter = require("./api/productos");
 
+router.use("/clientes", apiClientsRouter);
 
+router.use("/modelos", apiModelsRouter);
 
-router.use('/clientes', apiClientsRouter);
+router.use("/empleados", apiEmployeesRouter);
 
-router.use('/modelos', apiModelsRouter);
+router.use("/encargados", apiManagersRouter);
 
-router.use('/empleados', apiEmployeesRouter);
+router.use("/analistas", apiAnalystsRouter);
 
-router.use('/encargados', apiManagersRouter);
+router.use("/estados", apiStateRouter);
 
-router.use('/analistas', apiAnalystsRouter);
+router.use("/ciudad", apiCityRouter);
 
-router.use('/estados', apiStateRouter);
+router.use("/linea-suministro", apiSupplyLineRouter);
 
-router.use('/ciudad', apiCityRouter);
+router.use("/agencias", apiAgencyRouter);
 
-router.use('/linea-suministro', apiSupplyLineRouter);
+router.use("/tarjetas", apiBanksRouter);
 
-router.use('/agencias', apiAgencyRouter);
+router.use("/vehiculos", apiVehiclesRouter);
 
-router.use('/tarjetas', apiBanksRouter);
+router.use("/servicios", apiServiceRouter);
 
-router.use('/vehiculos', apiVehiclesRouter)
+router.use("/actividades", apiActivityRouter);
 
-router.use('/servicios', apiServiceRouter);
+router.use("/trabaja", apiWorkRouter);
 
-router.use('/actividades', apiActivityRouter);
+router.use("/reservas", apiReserveRouter);
 
-router.use('/trabaja', apiWorkRouter)
+router.use("/especializa", apiSpecializeRouter);
 
-router.use('/reservas', apiReserveRouter);
+router.use("/pagos", apiPaymentRouter);
 
-router.use('/especializa', apiSpecializeRouter);
+router.use("/orden-servicio", apiServiceOrderRouter);
 
-router.use('/pagos', apiPaymentRouter);
+router.use("/detalle", apiDetailRouter);
 
-router.use('/orden-servicio', apiServiceOrderRouter);
-
-router.use('/detalle', apiDetailRouter);
-
+router.use("/clientes", apiClientsRouter);
+router.use("/bancos", apiBanksRouter);
+router.use("/productos", apiProductsRouter);
 
 module.exports = router;

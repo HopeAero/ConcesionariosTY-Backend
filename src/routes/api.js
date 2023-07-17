@@ -20,8 +20,9 @@ const apiReserveRouter = require("./api/reserva");
 const apiSpecializeRouter = require("./api/especializa");
 const apiPaymentRouter = require("./api/pagos");
 const apiDetailRouter = require("./api/detalle");
-const apiBanksRouter = require("./api/bancos");
 const apiProductsRouter = require("./api/productos");
+const apiUtilizeRouter = require("./api/utiliza");
+
 
 router.use("/clientes", apiClientsRouter);
 
@@ -62,7 +63,11 @@ router.use("/orden-servicio", apiServiceOrderRouter);
 router.use("/detalle", apiDetailRouter);
 
 router.use("/clientes", apiClientsRouter);
+
 router.use("/bancos", apiBanksRouter);
+
 router.use("/productos", apiProductsRouter);
+
+router.use("/utiliza", apiUtilizeRouter);
 
 module.exports = router;

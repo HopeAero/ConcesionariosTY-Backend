@@ -41,8 +41,6 @@ router.use('/tarjetas', apiBanksRouter);
 
 router.use('/vehiculos', apiVehiclesRouter);
 
-router.use('/vehiculos', apiVehiclesRouter);
-
 router.use('/orden-servicio', apiServiceOrderRouter);
 
 router.use('/actividades', apiActivityRouter);

@@ -211,10 +211,13 @@ CREATE TABLE ESPECIALIZA (
 
 CREATE TABLE UTILIZA (
     CI_Empleado cedula NOT NULL,
+    nro_actividad INTEGER NOT NULL,
+    codigo_servicio INTEGER NOT NULL,
     codigo_producto INTEGER NOT NULL,
     cantidad_producto INTEGER NOT NULL,
     precio_producto FLOAT NOT NULL CHECK(precio_producto > 0),    
-    CONSTRAINT pk_utiliza PRIMARY KEY (CI_Empleado, codigo_producto),
+    CONSTRAINT pk_utiliza PRIMARY KEY (CI_Empleado, codigo_producto, codigo_servicio, nro_actividad),
+    CONSTRAINT fk_U_actividad FOREIGN KEY (codigo_servicio,nro_actividad) REFERENCES ACTIVIDAD(codigo_servicio,nro_actividad) ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT fk_U_empleado FOREIGN KEY (CI_Empleado) REFERENCES EMPLEADO(CI_Empleado) ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT fk_producto FOREIGN KEY (codigo_producto) REFERENCES PRODUCTO(codigo) ON UPDATE CASCADE ON DELETE RESTRICT
 );

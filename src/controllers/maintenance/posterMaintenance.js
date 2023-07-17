@@ -7,6 +7,7 @@ const posterMaintenance = async (req, res) => {
         const verify = await pool.query('SELECT * FROM vehiculo WHERE placa = $1', [placa_vehiculo]);
         const verify2 = await pool.query('SELECT * FROM modelo WHERE codigo = $1', [codigo_modelo]);
         const verify3 = await pool.query('SELECT * FROM ORDEN_DE_SERVICIO WHERE placa_vehiculo = $1 ORDER BY codigo DESC LIMIT 1', [placa_vehiculo]);
+        let boolean = false;
         const servicios = {
             'Cambio de aceite': { km: 5000, meses: 6 },
             'Cambio de bujias': { km: 30000, meses: 23 },
@@ -46,7 +47,6 @@ const posterMaintenance = async (req, res) => {
                         if (kilometraje > umbrales.km || diferenciaEnMeses > umbrales.meses) {
                             let codigo_servicio = await pool.query('SELECT codigo FROM servicio WHERE nombre = $1 OR nombre = $2', [servicio, servicio.toLowerCase()]);
                             codigo_servicio = codigo_servicio.rows[0].codigo;
-                            let boolean = false;
                             if (codigo_servicio === undefined || codigo_servicio === null) {
                                 boolean = true;
                                 continue;

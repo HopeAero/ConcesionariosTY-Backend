@@ -168,7 +168,7 @@ CREATE TABLE PAGO (
     nro_tarjeta BIGINT NULL,
     tipo_pago tipo_pago NOT NULL,
     nro_factura INTEGER not NULL,
-    CONSTRAINT fk_nro_tarjeta FOREIGN KEY (nro_tarjeta) REFERENCES BANCO(nro_tarjeta) ON UPDATE CASCADE ON DELETE RESTRICT,
+    CONSTRAINT fk_nro_tarjeta FOREIGN KEY (nro_tarjeta) REFERENCES TARJETA(nro_tarjeta) ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT fk_nro_factura FOREIGN KEY (nro_factura) REFERENCES FACTURA(nro_factura) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 

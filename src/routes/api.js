@@ -18,7 +18,7 @@ const apiServiceOrderRouter = require('./api/orden-servicio');
 const apiWorkRouter = require('./api/trabaja');
 const apiReserveRouter = require('./api/reserva');
 const apiSpecializeRouter = require('./api/especializa');
-
+const apiPaymentRouter = require('./api/pagos');
 
 
 router.use('/clientes', apiClientsRouter);
@@ -54,5 +54,7 @@ router.use('/trabaja', apiWorkRouter)
 router.use('/reservas', apiReserveRouter);
 
 router.use('/especializa', apiSpecializeRouter);
+
+router.use('/pagos', apiPaymentRouter);
 
 module.exports = router;

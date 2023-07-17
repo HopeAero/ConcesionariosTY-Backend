@@ -81,8 +81,36 @@ const getAllVehicles = async (req, res) => {
     }
 }
 
+const getVehicleByModels = async (req, res) => {
+    try {
+        const codigo_modelo = req.params.codigo_modelo;
+        const response = await pool.query('SELECT * FROM vehiculo WHERE codigo_modelo = $1', [codigo_modelo]);
+
+        if (response.rows.length === 0) {
+            res.status(404).json({
+                success: false,
+                message: "No existe un vehiculo con este codigo de modelo",
+            });
+        } else {
+            res.status(200).json({
+                success: true,
+                message: "Vehiculos recuperado con exito",
+                items: response.rows
+            });
+        }
+
+    } catch(error) {
+        res.status(500).json({
+            success: false,
+            message: "Ha ocurrido un problema",
+        });
+        console.log(error);
+    }
+}
+
 module.exports = {
     getVehicles,
     getVehicleByCI,
-    getAllVehicles
+    getAllVehicles,
+    getVehicleByModels
 }

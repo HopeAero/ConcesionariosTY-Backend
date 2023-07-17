@@ -21,7 +21,7 @@ const apiSpecializeRouter = require('./api/especializa');
 const apiPaymentRouter = require('./api/pagos');
 const apiDetailRouter = require('./api/detalle');
 const apiHireRouter = require('./api/contrata');
-
+const apiMantenimientoRecomendadoRouter = require('./api/mantenimiento_recomendado');
 
 router.use('/clientes', apiClientsRouter);
 
@@ -43,7 +43,13 @@ router.use('/agencias', apiAgencyRouter);
 
 router.use('/tarjetas', apiBanksRouter);
 
-router.use('/vehiculos', apiVehiclesRouter)
+router.use('/vehiculos', apiVehiclesRouter);
+
+router.use('/orden-servicio', apiServiceOrderRouter);
+
+router.use('/actividades', apiActivityRouter);
+
+router.use('/reservas', apiReserveRouter);
 
 router.use('/servicios', apiServiceRouter);
 
@@ -63,5 +69,6 @@ router.use('/detalle', apiDetailRouter);
 
 router.use('/contrata', apiHireRouter);
 
+router.use('/mantenimiento-recomendado', apiMantenimientoRecomendadoRouter);
 
 module.exports = router;

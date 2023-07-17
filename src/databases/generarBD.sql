@@ -241,6 +241,7 @@ CREATE TABLE TRABAJA (
 CREATE TABLE CONTRATA (
     id_reserva INTEGER NOT NULL,
     codigo_servicio INTEGER NOT NULL,
+    tiempo_reserva dom_fechas NOT NULL,
     CONSTRAINT pk_contrata PRIMARY KEY (id_reserva, codigo_servicio),
     CONSTRAINT fk_reserva FOREIGN KEY (id_reserva) REFERENCES RESERVA(id_reserva) ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT fk_C_servicio FOREIGN KEY (codigo_servicio) REFERENCES SERVICIO(codigo) ON UPDATE CASCADE ON DELETE RESTRICT

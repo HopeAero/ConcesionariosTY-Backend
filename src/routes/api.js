@@ -20,7 +20,7 @@ const apiReserveRouter = require('./api/reserva');
 const apiSpecializeRouter = require('./api/especializa');
 const apiPaymentRouter = require('./api/pagos');
 const apiDetailRouter = require('./api/detalle');
-
+const apiHireRouter = require('./api/contrata');
 
 
 router.use('/clientes', apiClientsRouter);
@@ -60,6 +60,8 @@ router.use('/pagos', apiPaymentRouter);
 router.use('/orden-servicio', apiServiceOrderRouter);
 
 router.use('/detalle', apiDetailRouter);
+
+router.use('/contrata', apiHireRouter);
 
 
 module.exports = router;

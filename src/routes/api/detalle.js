@@ -12,7 +12,7 @@ router.get('/:codigo_servicio', getDetailByCode);
 
 router.post('/', posterDetail);
 
-router.put('/:codigo_servicio/:nro_actividad/:nro_detalle', updateDetail);
+router.put('/:codigo_orden_servicio/:cod_servicio/:nro_actividad', updateDetail);
 
 router.delete('/:codigo_servicio', deleteDetail )
 

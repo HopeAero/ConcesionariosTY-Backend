@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const { Router } = require("express");
 const router = Router();
 
 const apiClientsRouter = require('./api/clientes');
@@ -22,53 +22,53 @@ const apiPaymentRouter = require('./api/pagos');
 const apiDetailRouter = require('./api/detalle');
 const apiHireRouter = require('./api/contrata');
 const apiMantenimientoRecomendadoRouter = require('./api/mantenimiento_recomendado');
+const apiUtilizeRouter = require("./api/utiliza");
+const apiProductsRouter = require("./api/productos");
 
-router.use('/clientes', apiClientsRouter);
+router.use("/modelos", apiModelsRouter);
 
-router.use('/modelos', apiModelsRouter);
+router.use("/empleados", apiEmployeesRouter);
 
-router.use('/empleados', apiEmployeesRouter);
+router.use("/encargados", apiManagersRouter);
 
-router.use('/encargados', apiManagersRouter);
+router.use("/analistas", apiAnalystsRouter);
 
-router.use('/analistas', apiAnalystsRouter);
+router.use("/estados", apiStateRouter);
 
-router.use('/estados', apiStateRouter);
+router.use("/ciudad", apiCityRouter);
 
-router.use('/ciudad', apiCityRouter);
+router.use("/linea-suministro", apiSupplyLineRouter);
 
-router.use('/linea-suministro', apiSupplyLineRouter);
+router.use("/agencias", apiAgencyRouter);
 
-router.use('/agencias', apiAgencyRouter);
-
-router.use('/tarjetas', apiBanksRouter);
+router.use("/tarjetas", apiBanksRouter);
 
 router.use('/vehiculos', apiVehiclesRouter);
 
-router.use('/orden-servicio', apiServiceOrderRouter);
-
 router.use('/actividades', apiActivityRouter);
 
 router.use('/reservas', apiReserveRouter);
 
-router.use('/servicios', apiServiceRouter);
+router.use("/servicios", apiServiceRouter);
 
-router.use('/actividades', apiActivityRouter);
+router.use("/trabaja", apiWorkRouter);
 
-router.use('/trabaja', apiWorkRouter)
+router.use("/especializa", apiSpecializeRouter);
 
-router.use('/reservas', apiReserveRouter);
+router.use("/pagos", apiPaymentRouter);
 
-router.use('/especializa', apiSpecializeRouter);
+router.use("/orden-servicio", apiServiceOrderRouter);
 
-router.use('/pagos', apiPaymentRouter);
+router.use("/detalle", apiDetailRouter);
 
-router.use('/orden-servicio', apiServiceOrderRouter);
-
-router.use('/detalle', apiDetailRouter);
+router.use("/clientes", apiClientsRouter);
 
 router.use('/contrata', apiHireRouter);
 
 router.use('/mantenimiento-recomendado', apiMantenimientoRecomendadoRouter);
+
+router.use("/productos", apiProductsRouter);
+
+router.use("/utiliza", apiUtilizeRouter);
 
 module.exports = router;

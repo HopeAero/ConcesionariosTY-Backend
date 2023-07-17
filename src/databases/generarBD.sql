@@ -121,6 +121,8 @@ CREATE TABLE ORDEN_DE_SERVICIO (
     fecha_salida_est TIMESTAMP NOT NULL,
     retirante_CI cedula NOT NULL,
     retirante_nombre dom_nombre NOT NULL,
+    kilometraje INTEGER NOT NULL,
+    tiempo_de_uso INTERVAL NOT NULL,
     placa_vehiculo VARCHAR(10) NOT NULL,
     CI_Empleado cedula NOT NULL,
     CONSTRAINT fk_placa_vehiculo FOREIGN KEY (placa_vehiculo) REFERENCES VEHICULO(placa) ON UPDATE CASCADE ON DELETE RESTRICT,

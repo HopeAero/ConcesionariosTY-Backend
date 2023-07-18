@@ -14,7 +14,7 @@ router.get('/placa/:placa', getReserveByPlaca);
 
 router.post('/', posterReserve);
 
-router.put('/:id', updateReserve);
+router.put('/:id_reserva', updateReserve);
 
 router.delete('/:id', deleteReserve);
 

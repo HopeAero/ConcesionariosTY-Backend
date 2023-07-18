@@ -30,12 +30,14 @@ const posterBill = async (req, res) => {
                 return res.status(400).json({
                     success: false,
                     message: "La orden de servicio no existe en detalla"
-                });
+                }); 
             } else {
                 let montoActividad = await pool.query('SELECT SUM(costo_actividad * horas_requeridas) as costo_detalla FROM DETALLA WHERE codigo_orden_servicio = $1', [codigo_orden_servicio]);
+                console.log(montoActividad.rows[0])
                 const servicios = verify2.rows.map((row) => row.codigo_servicio);
-                let montoUtiliza = await pool.query('SELECT SUM(cantidad_producto * precio_producto) as costo_utiliza FROM UTILIZA WHERE codigo_servicio = ANY($1)', [servicios]); 
-                let montoTotal = montoActividad.rows[0].costo_detalla + montoUtiliza.rows[0].costo_utiliza;
+                let montoUtiliza = await pool.query(`SELECT SUM(cantidad_producto * precio_producto) as costo_utiliza FROM UTILIZA WHERE codigo_servicio = ANY(ARRAY[${servicios}]);
+                `);
+                let montoTotal = (montoActividad.rows[0].costo_detalla) + (montoUtiliza.rows[0].costo_utiliza);
                 const verifyClient = await pool.query(`SELECT c.es_frecuente, c.ci_cliente
                 FROM ORDEN_DE_SERVICIO os
                 JOIN VEHICULO v ON os.placa_vehiculo = v.placa
@@ -76,6 +78,7 @@ const posterBill = async (req, res) => {
                             items: response.rows
                         })
                     } else {
+                        console.log(nro_factura, fecha, codigo_orden_servicio, 0, montoTotal)
                         const response = await pool.query('INSERT INTO FACTURA (nro_factura, fecha, codigo_orden_servicio, porcentaje_descuento, monto_total) VALUES ($1, $2, $3, $4, $5) RETURNING *', [nro_factura, fecha, codigo_orden_servicio, 0, montoTotal]);
                         res.status(200).json({
                             success: true,

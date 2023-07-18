@@ -226,7 +226,7 @@ CREATE TABLE DETALLA (
     codigo_orden_servicio INTEGER NOT NULL,
     codigo_servicio INTEGER NOT NULL,
     nro_actividad INTEGER NOT NULL,
-    horas_requeridas TIME NOT NULL,
+    horas_requeridas INTEGER NOT NULL CHECK (horas_requeridas >= 1 AND horas_requeridas <= 24),
     costo_actividad FLOAT NOT NULL CHECK(costo_actividad > 0),    
     CONSTRAINT pk_detalla PRIMARY KEY (codigo_orden_servicio, codigo_servicio, nro_actividad),
     CONSTRAINT fk_orden_servicio FOREIGN KEY (codigo_orden_servicio) REFERENCES ORDEN_DE_SERVICIO(codigo) ON UPDATE CASCADE ON DELETE RESTRICT,

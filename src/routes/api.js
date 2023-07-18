@@ -24,6 +24,7 @@ const apiHireRouter = require('./api/contrata');
 const apiMantenimientoRecomendadoRouter = require('./api/mantenimiento_recomendado');
 const apiUtilizeRouter = require("./api/utiliza");
 const apiProductsRouter = require("./api/productos");
+const apiFacturaRouter = require("./api/factura");
 
 router.use("/modelos", apiModelsRouter);
 
@@ -70,5 +71,7 @@ router.use('/mantenimiento-recomendado', apiMantenimientoRecomendadoRouter);
 router.use("/productos", apiProductsRouter);
 
 router.use("/utiliza", apiUtilizeRouter);
+
+router.use("/factura", apiFacturaRouter);
 
 module.exports = router;

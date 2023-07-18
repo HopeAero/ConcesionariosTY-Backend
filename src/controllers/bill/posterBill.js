@@ -33,7 +33,6 @@ const posterBill = async (req, res) => {
                 }); 
             } else {
                 let montoActividad = await pool.query('SELECT SUM(costo_actividad * horas_requeridas) as costo_detalla FROM DETALLA WHERE codigo_orden_servicio = $1', [codigo_orden_servicio]);
-                console.log(montoActividad.rows[0])
                 const servicios = verify2.rows.map((row) => row.codigo_servicio);
                 let montoUtiliza = await pool.query(`SELECT SUM(cantidad_producto * precio_producto) as costo_utiliza FROM UTILIZA WHERE codigo_servicio = ANY(ARRAY[${servicios}]);
                 `);
@@ -78,7 +77,7 @@ const posterBill = async (req, res) => {
                             items: response.rows
                         })
                     } else {
-                        console.log(nro_factura, fecha, codigo_orden_servicio, 0, montoTotal)
+                        
                         const response = await pool.query('INSERT INTO FACTURA (nro_factura, fecha, codigo_orden_servicio, porcentaje_descuento, monto_total) VALUES ($1, $2, $3, $4, $5) RETURNING *', [nro_factura, fecha, codigo_orden_servicio, 0, montoTotal]);
                         res.status(200).json({
                             success: true,
@@ -89,11 +88,6 @@ const posterBill = async (req, res) => {
                 }
             }
         }
-        res.status(200).json({
-            success: true,
-            message: "Factura insertada con exito",
-            items: response.rows
-        });
     } catch(error) {
         res.status(500).json({
             success: false,

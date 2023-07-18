@@ -13,7 +13,7 @@ const posterBill = async (req, res) => {
         };
 
         const {nro_factura, fecha, codigo_orden_servicio} = req.body;
-        const verify = await pool.query('SELECT * FROM facturas WHERE nro_factura = $1', [nro_factura]);
+        const verify = await pool.query('SELECT * FROM FACTURA WHERE nro_factura = $1', [nro_factura]);
         const descuentos = {
             0.05: { prom: 2},
             0.10: { prom: 3.54},
@@ -69,14 +69,14 @@ const posterBill = async (req, res) => {
                         const serviciosContratados = promedio.rows[0].promedio_servicios_contratados;
                         const descuento = calcularDescuentos(serviciosContratados, descuentos);
                         montoTotal = montoTotal * descuento;
-                        const response = await pool.query('INSERT INTO facturas (nro_factura, fecha, codigo_orden_servicio, porcentaje_descuento, monto_total) VALUES ($1, $2, $3, $4) RETURNING *', [nro_factura, fecha, codigo_orden_servicio, descuento, montoTotal]);
+                        const response = await pool.query('INSERT INTO FACTURA (nro_factura, fecha, codigo_orden_servicio, porcentaje_descuento, monto_total) VALUES ($1, $2, $3, $4) RETURNING *', [nro_factura, fecha, codigo_orden_servicio, descuento, montoTotal]);
                         res.status(200).json({
                             success: true,
                             message: "Factura insertada con exito",
                             items: response.rows
                         })
                     } else {
-                        const response = await pool.query('INSERT INTO facturas (nro_factura, fecha, codigo_orden_servicio, porcentaje_descuento, monto_total) VALUES ($1, $2, $3, $4) RETURNING *', [nro_factura, fecha, codigo_orden_servicio, 0, montoTotal]);
+                        const response = await pool.query('INSERT INTO FACTURA (nro_factura, fecha, codigo_orden_servicio, porcentaje_descuento, monto_total) VALUES ($1, $2, $3, $4) RETURNING *', [nro_factura, fecha, codigo_orden_servicio, 0, montoTotal]);
                         res.status(200).json({
                             success: true,
                             message: "Factura insertada con exito",

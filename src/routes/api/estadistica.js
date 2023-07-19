@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const {servicedVehicleModels, servicedVehicleModelsType, personalMostServicedForMONTH, personalMinServiceForMONTH, ProductosMasVendidos, ProductosMenosVendido, listOrdenClient, servicesMore, servicesMin, promEcology, historyVehicle, agencyMoreFactura, agencyMinFactura} = require('../../controllers/statistics/querystatistic');
+const {servicedVehicleModels, servicedVehicleModelsType, personalMostServicedForMONTH, personalMinServiceForMONTH, ProductosMasVendidos, ProductosMenosVendido, listOrdenClient, servicesMore, servicesMin, promEcology, historyVehicle, agencyMoreFactura, agencyMinFactura, clientNotService} = require('../../controllers/statistics/querystatistic');
 
 router.get('/servicedVehicleModels', servicedVehicleModels);
 
@@ -27,5 +27,7 @@ router.get('/historyVehicle', historyVehicle);
 router.get('/agencyMoreFactura', agencyMoreFactura);
 
 router.get('/agencyMinFactura', agencyMinFactura);
+
+router.get('/clientNotService', clientNotService);
 
 module.exports = router

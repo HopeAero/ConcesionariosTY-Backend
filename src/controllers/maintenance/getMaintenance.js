@@ -61,6 +61,33 @@ const getMaintenancePlaca = async (req, res) => {
     }
 }
 
+const getMaintenanceModelo = async (req, res) => {
+    try {
+        const modelo = req.params.modelo;
+        const response = await pool.query('SELECT * FROM MANTENIMIENTO_RECOMENDADO WHERE codigo_modelo = $1', [modelo]);
+
+        if (response.rows.length === 0) {
+            res.status(404).json({
+                success: false,
+                message: "No existe mantenimiento recomendado con este modelo",
+            });
+        } else {
+            res.status(200).json({
+                success: true,
+                message: "Mantenimiento recomendado de un vehiculo recuperado con exito",
+                items: response.rows
+            });
+        }
+
+    } catch(error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: `Ha ocurrido un problema ${error.message}`
+        });
+    }
+}
+
 const getMaintenanceAll = async (req, res) => {
     try {
         const response = await pool.query('SELECT * FROM MANTENIMIENTO_RECOMENDADO');
@@ -82,5 +109,6 @@ const getMaintenanceAll = async (req, res) => {
 module.exports = {
     getMaintenancePaginate,
     getMaintenancePlaca,
+    getMaintenanceModelo,
     getMaintenanceAll
 }

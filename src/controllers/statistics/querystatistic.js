@@ -2,8 +2,8 @@ const { pool } = require("./../../databases/db");
 
 const servicedVehicleModels = async (req, res) => {
     try {
-        const fecha_inicio = req.query.fecha_inicio;
-        const fecha_fin = req.query.fecha_fin;
+        const fecha_inicio = req.body.fecha_inicio;
+        const fecha_fin = req.body.fecha_fin;
         const response =
             await pool.query(`SELECT vehiculo.codigo_modelo, COUNT(*) AS total_atenciones
             FROM vehiculo
@@ -14,7 +14,7 @@ const servicedVehicleModels = async (req, res) => {
             ORDER BY total_atenciones DESC;`);
             res.status(200).json({
                 success: true,
-                message:
+                message: 
                     "Modelos de vehículos mas atendidos en un periodo recuperados con éxito",
                 items: response.rows,
             });
@@ -30,7 +30,7 @@ const servicedVehicleModels = async (req, res) => {
 
 const servicedVehicleModelsType = async (req, res) => {
     try {
-        const codigo_servicio = req.query.codigo_servicio;
+        const codigo_servicio = req.body.codigo_servicio;
         const response =
             await pool.query(`SELECT vehiculo.codigo_modelo, COUNT(*) AS total_atenciones
         FROM vehiculo
@@ -365,6 +365,36 @@ const agencyMinFactura = async (req, res) => {
     }
 }
 
+const clientNotService = async (req, res) => {
+    try {
+        const response = await pool.query(`SELECT c.CI_Cliente, c.nombre AS nombre_cliente
+        FROM cliente c
+        LEFT JOIN vehiculo v ON c.CI_Cliente = v.CI_Cliente
+        LEFT JOIN reserva r ON v.placa = r.placa_vehiculo
+        LEFT JOIN contrata ct ON r.id_reserva = ct.id_reserva
+        LEFT JOIN detalla d ON ct.codigo_servicio = d.codigo_servicio
+        WHERE r.id_reserva IS NOT NULL -- Filtrar reservas válidas
+          AND d.codigo_orden_servicio IS NULL -- Excluir reservas con uso de servicio
+          AND ct.codigo_servicio IS NOT NULL -- Filtrar contrataciones válidas
+          AND ct.tiempo_reserva < NOW(); -- Filtrar contrataciones con tiempo_reserva anterior a la fecha actual
+        `)
+
+        res.status(200).json({
+            success: true,
+            message: "servicios no utilizados recuperados con exito",
+            items: response.rows,
+        });
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: `Ha ocurrido un problema ${error.message}`,
+        }); 
+    }
+}
+ 
+
 module.exports = {
     servicedVehicleModels,
     servicedVehicleModelsType,
@@ -378,7 +408,8 @@ module.exports = {
     servicesMin,
     historyVehicle,
     agencyMoreFactura,
-    agencyMinFactura
+    agencyMinFactura,
+    clientNotService
 }
 
 

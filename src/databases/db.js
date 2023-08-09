@@ -6,7 +6,8 @@ const pool = new Pool({
     password: process.env.PASSWORD || '1234',
     database: process.env.DATABASE || 'ConcesionariosTY',
     port: process.env.PORT || 5432,
-    database_url: process.env.DATABASE_URL || 'postgres://postgres:1234@localhost:5432/ConcesionariosTY'
+    database_url: process.env.DATABASE_URL || 'postgres://postgres:1234@localhost:5432/ConcesionariosTY',
+    ssl : process.env.PGSSLMODE || false
 });
 
 module.exports = {

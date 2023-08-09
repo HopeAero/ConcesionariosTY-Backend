@@ -1,4 +1,5 @@
 const {Pool} = require('pg');
+const fs = require('fs');
 console.log(process.env.PGSSLMODE);
 
 const pool = new Pool({

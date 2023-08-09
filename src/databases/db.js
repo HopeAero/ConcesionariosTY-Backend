@@ -9,7 +9,7 @@ const pool = new Pool({
     port: process.env.PORT || 5432,
     connectionString: process.env.DATABASE_URL || 'postgres://postgres:1234@localhost:5432/ConcesionariosTY',
     ssl : {
-        require: true,
+        require: process.env.PGSSLMODE || false,
         rejectUnauthorized: false
     }
 });

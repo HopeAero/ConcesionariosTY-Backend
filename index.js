@@ -6,6 +6,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const apiRouter = require('./src/routes/api');
+const PORT = process.env.PORT || 3000;
 
 // MIDDLEWARES
 app.use(cors());
@@ -16,6 +17,6 @@ app.use(express.urlencoded({extended: false}));
 app.use('/',apiRouter);
 
 // SERVER
-app.listen(3000, () => {
-    console.log('Servidor activo en el puerto 3000');
+app.listen(PORT, () => {
+    console.log('Servidor activo en el puerto ' + PORT);
 });
